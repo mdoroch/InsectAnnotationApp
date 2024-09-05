@@ -85,7 +85,7 @@ def show_photos(main_directory, output_path):
 
         st.download_button(
               label="Download results",
-              data=json_file,
+              data=st.session_state.user_responses,
               file_name=path2json,
               mime='text/json',
         )
