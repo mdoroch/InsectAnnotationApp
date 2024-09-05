@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import os
 import glob
 import json
@@ -82,12 +83,16 @@ def show_photos(main_directory, output_path):
         inp_dir = st.session_state['selected_dir'].split('/')[-1]
         obs_nom = st.session_state['observateur_nom']
         path2json = f'responses_{inp_dir}_{current_time_str}_{obs_nom}.json'
-
+        path2csv = f'responses_{inp_dir}_{current_time_str}_{obs_nom}.csv'
+     
+        data = st.session_state.user_responses
+        data_df = pd.DataFrame({'frame_id': list(data.keys()), 'user_response': list(data.values())})
+     
         st.download_button(
-              label="Download results",
-              data=st.session_state.user_responses,
-              file_name=path2json,
-              mime='text/json',
+              label="Download results (csv)",
+              data=data_df,
+              file_name=path2csv,
+              mime='text/csv',
         )
         with open(os.path.join(output_path, path2json), 'w') as json_file:
             json.dump(st.session_state.user_responses, json_file)
