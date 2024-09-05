@@ -82,9 +82,18 @@ def show_photos(main_directory, output_path):
         inp_dir = st.session_state['selected_dir'].split('/')[-1]
         obs_nom = st.session_state['observateur_nom']
         path2json = f'responses_{inp_dir}_{current_time_str}_{obs_nom}.json'
+
+        st.download_button(
+              label="Download results",
+              data=json_file,
+              file_name=path2json,
+              mime='text/json',
+        )
         with open(os.path.join(output_path, path2json), 'w') as json_file:
             json.dump(st.session_state.user_responses, json_file)
         st.write(f"Responses saved to {path2json}")
+
+     
 
 st.title("Image Annotation App")
 
