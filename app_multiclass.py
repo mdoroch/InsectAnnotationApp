@@ -86,7 +86,7 @@ def show_photos(main_directory, output_path):
         path2csv = f'responses_{inp_dir}_{current_time_str}_{obs_nom}.csv'
      
         data = st.session_state.user_responses
-        data_df = pd.DataFrame({'frame_id': list(data.keys()), 'user_response': list(data.values())})
+        data_df = pd.DataFrame({'frame_id': list(data.keys()), 'user_response': list(data.values())}).to_csv(index=False)
      
         st.download_button(
               label="Download results (csv)",
