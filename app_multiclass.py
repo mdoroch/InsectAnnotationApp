@@ -62,7 +62,7 @@ def show_photos(main_directory, output_path):
         if st.button('prédiction correcte', key='button_correct'):
             st.session_state.user_responses[img_name] = class_mapper[img_name.split('_')[-3]]
             st.session_state.photo_index += 1
-            st.experimental_rerun()
+            st.rerun() # st.experimental_rerun()
 
         cols = st.columns(3)
 
@@ -72,11 +72,11 @@ def show_photos(main_directory, output_path):
                 if cols[j].button(reversed_mapper[button_index], key=f'button_{button_labels[button_index]}'):
                     st.session_state.user_responses[img_name] = button_labels[button_index]
                     st.session_state.photo_index += 1
-                    st.experimental_rerun()
+                    st.rerun()
 
         if st.button('Back', key='back_button') and st.session_state.photo_index > 0:
             st.session_state.photo_index -= 1
-            st.experimental_rerun()
+            st.rerun()
     else:
         st.write("All photos reviewed!")
         inp_dir = st.session_state['selected_dir'].split('/')[-1]
@@ -105,7 +105,7 @@ if page == "Home":
         st.session_state['output_path'] = output_path
         st.session_state.photo_index = 0
         st.session_state.page = "Positive - an insect is present on the flower, Negative - no insect is present"
-        st.experimental_rerun()
+        st.rerun()
 
 if page == "Positive - an insect is present on the flower, Negative - no insect is present":
     if 'selected_dir' in st.session_state and os.path.isdir(st.session_state['selected_dir']):
